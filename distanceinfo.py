@@ -1,5 +1,4 @@
-import math
-import csv
+
 class DistanceInfo:
     def __init__(self):
         self.team_location = dict()
