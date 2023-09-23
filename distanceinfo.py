@@ -4,10 +4,10 @@ class DistanceInfo:
         self.team_location = dict()
         self.time_taken_dict = dict()
 
-        self.create_team_dict()
-        self.create_time_travelled_dict()
+        self._create_team_dict()
+        self._create_time_travelled_dict()
 
-    def create_team_dict(self):
+    def _create_team_dict(self):
         self.team_location["arsenal"] = "London"
         self.team_location["aston villa"] = "Birmingham"
         self.team_location["bournemouth afc"] = "Bournemouth"
@@ -22,14 +22,15 @@ class DistanceInfo:
         self.team_location["luton town"] = "Luton"
         self.team_location["manchester city"] = "Manchester"
         self.team_location["manchester united"] = "Manchester"
-        self.team_location["newcastle"] = "Newcastle"
+        self.team_location["newcastle united"] = "Newcastle"
         self.team_location["nottingham forest"] = "Nottingham"
         self.team_location["southampton"] = "Southampton"
         self.team_location["tottenham hotspur"] = "London"
         self.team_location["west ham united"] = "London"
         self.team_location["wolverhampton wanderers"] = "Wolverhampton"
+        self.team_location["sheffield united"] = "Sheffield"
 
-    def create_time_travelled_dict(self):
+    def _create_time_travelled_dict(self):
         file = open("Resources/traveltimes.txt", "r")
         time_taken_array = file.read().split("\n")
         for timepair in time_taken_array:
@@ -37,6 +38,7 @@ class DistanceInfo:
             self.time_taken_dict[frozenset((locA, locB))] = time
 
     def get_distance_between_two_teams(self, A, B):
+
         team_a = A.lower()
         team_b = B.lower()
 

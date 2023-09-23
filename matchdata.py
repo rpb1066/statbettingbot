@@ -7,7 +7,7 @@ class MatchData:
     def __init__(self, smarkets_match_data, time: str):
         self.match_data_dict = dict()
 
-        self.match_data_dict[MatchDataFields.TIME] = " ".join(time.replace(",", "").split(" ")[1:])
+        self.match_data_dict[MatchDataFields.TIME] = " ".join(time.replace(",", "").split(" "))
         data_list = smarkets_match_data.split("\n")
 
         self.match_data_dict[MatchDataFields.HOMETEAM] = data_list[0]

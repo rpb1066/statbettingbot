@@ -7,7 +7,7 @@ london,luton,55
 london,manchester,225
 london,newcastle,303
 london,nottingham,151
-london,southhampton,95
+london,southampton,95
 london,wolverhampton,155
 birmingham,bournemouth,180
 birmingham,brighton,181
@@ -64,3 +64,15 @@ newcastle,wolverhampton,219
 nottingham,southampton,183
 nottingham,wolverhampton,73
 southampton,wolverhampton,169
+sheffield,birmingham,95
+sheffield,bournemouth,251
+sheffield,brighton,255
+sheffield,burnley,93
+sheffield,liverpool,111
+sheffield,luton,165
+sheffield,manchester,70
+sheffield,newcastle,144
+sheffield,nottingham,56
+sheffield,southampton,227
+sheffield,wolverhampton,118
+sheffield,london,209
