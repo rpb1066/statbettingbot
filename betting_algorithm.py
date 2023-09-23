@@ -4,9 +4,18 @@ import matchdata as md
 
 class BettingAlgorithm:
     def __init__(self):
-        pass
+        self.write_file = False
+        self.match_week = 0
+        self.file = 0
 
     def distancetimemodel(self, match_data_list):
+
+        file_user_input = input("Do you want to write to file (y/n)")
+        if file_user_input == "y":
+            self.write_file = True
+            self.match_week = input("Which match week is it? ")
+            self.file = open("Resources/week" + self.match_week + "data.txt","w")
+
         for matchdata in match_data_list:
             distanceinfo = di.DistanceInfo()
 
@@ -73,3 +82,6 @@ class BettingAlgorithm:
 
     def _print_laybet(self, stake, liability, team):
         print("£" + stake + " (£" + str(liability) + " liability) on " + team + " to not win.")
+        if self.write_file:
+            self.file.write("£" + stake + " (£" + str(liability) + " liability) on " + team + " to not win.\n")
+

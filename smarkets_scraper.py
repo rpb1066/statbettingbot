@@ -27,11 +27,11 @@ class SmarketsScraper:
 
             driver.execute_script("window.scrollTo(0, " + str(list_count*150) + ")")
             events[list_count].click()
-            driver.implicitly_wait(.5)
+            driver.implicitly_wait(.1)
 
             time = driver.find_element(by=By.CLASS_NAME, value="event-date").text
             driver.back()
-            driver.implicitly_wait(.5)
+            driver.implicitly_wait(.1)
 
             events = driver.find_elements(by=By.CLASS_NAME, value="event-tile")
             match_data_list.append(md.MatchData(events[list_count].text,time))
