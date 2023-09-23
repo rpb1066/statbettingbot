@@ -12,14 +12,7 @@ class BettingAlgorithm:
 
             time_array = matchdata.get_data(md.MatchDataFields.TIME).split(" ")
 
-            time_in_minutes = 0
-            if time_array[0].split(":")[0].isnumeric():
-                display_time = time_array[0]
-                time_in_minutes = (int(time_array[0].split(":")[0]) * 60) + int(time_array[0].split(":")[1])
-
-            else:
-                display_time = time_array[1]
-                time_in_minutes = (int(time_array[1].split(":")[0]) * 60) + int(time_array[1].split(":")[1])
+            display_time, time_in_minutes = self._get_display_time(time_array)
 
             home_team = matchdata.get_data(md.MatchDataFields.HOMETEAM)
             away_team = matchdata.get_data(md.MatchDataFields.AWAYTEAM)
@@ -28,26 +21,55 @@ class BettingAlgorithm:
 
             print(home_team + " vs " + away_team + " at " + display_time + " :")
 
-            if time_in_minutes < 780:#
-                if(distance_between_teams>210):
-                    print("£10 on " + away_team + " to not win.")
-                elif(distance_between_teams > 120):
-                    print("£6 on " + away_team + " to not win.")
+            against_away_to_win_odd = matchdata.get_data(md.MatchDataFields.AWAYODDS)[1]
+
+            is_bet = True
+            liability = 0
+            stake = 0
+            if time_in_minutes < 780:  #
+                if distance_between_teams > 210:
+                    stake = self._get_laybet_stake(against_away_to_win_odd, 10)
+                    liability = 10
+                elif distance_between_teams > 120:
+                    stake = self._get_laybet_stake(against_away_to_win_odd, 6)
+                    liability = 6
                 else:
-                    print("£3 on " + away_team + " to not win.")
+                    stake = self._get_laybet_stake(against_away_to_win_odd, 3)
+                    liability = 3
             elif time_in_minutes < 850:
-                if (distance_between_teams > 210):
-                    print("£6 on " + away_team + " to not win.")
-                elif (distance_between_teams > 120):
-                    print("£3 on " + away_team + " to not win.")
+                if distance_between_teams > 210:
+                    stake = self._get_laybet_stake(against_away_to_win_odd, 6)
+                    liability = 6
+                elif distance_between_teams > 120:
+                    stake = self._get_laybet_stake(against_away_to_win_odd, 3)
+                    liability = 3
                 else:
+                    is_bet = False
                     print("No bet.")
             else:
-                if (distance_between_teams > 210):
-                    print("£3 on " + away_team + " to not win.")
+                if distance_between_teams > 210:
+                    stake = self._get_laybet_stake(against_away_to_win_odd, 3)
+                    liability = 3
                 else:
+                    is_bet = False
                     print("No bet.")
 
+            if is_bet:
+                self._print_laybet(stake, liability, away_team)
 
+    def _get_laybet_stake(self, odds: str, bet_amount):
+        odds = float(odds)
+        return str(bet_amount / (odds - 1))
 
+    def _get_display_time(self, time_array):
+        if time_array[0].split(":")[0].isnumeric():
+            display_time = time_array[0]
+            time_in_minutes = (int(time_array[0].split(":")[0]) * 60) + int(time_array[0].split(":")[1])
 
+        else:
+            display_time = time_array[1]
+            time_in_minutes = (int(time_array[1].split(":")[0]) * 60) + int(time_array[1].split(":")[1])
+        return display_time, time_in_minutes
+
+    def _print_laybet(self, stake, liability, team):
+        print("£" + stake + " (£" + str(liability) + " liability) on " + team + " to not win.")

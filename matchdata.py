@@ -17,8 +17,6 @@ class MatchData:
         self.match_data_dict[MatchDataFields.DRAWODDS] = (data_list[11], data_list[13])
         self.match_data_dict[MatchDataFields.AWAYODDS] = (data_list[16], data_list[18])
 
-        print(self.match_data_dict.values())
-
     def get_data(self, data_field):
         return self.match_data_dict[data_field]
 
